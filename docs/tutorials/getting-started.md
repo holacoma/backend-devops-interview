@@ -97,3 +97,22 @@ make server
 ```
 
 La API está lista en `http://localhost:8000/api/docs`.
+
+---
+
+## Notas adicionales
+
+### Opciones del comando seed
+
+| Opción | Ejemplo | Efecto |
+|--------|---------|--------|
+| `SCALE` | `make seed SCALE=0.05` | Carga el 5% del dataset (~5s). Default: `1.0` (completo) |
+| `PURGE` | `make seed PURGE=1` | Elimina todos los datos existentes antes de seedear |
+| `FORCE` | `make seed FORCE=1 PURGE=1` | Fuerza el seed saltándose el chequeo de datos existentes |
+
+> `FORCE` sin `PURGE` falla con un error de clave duplicada — el seed usa semillas fijas (`Faker.seed(42)`) y genera los mismos datos siempre.
+
+```sh
+make seed PURGE=1 SCALE=0.05        # limpia y carga un dataset reducido
+make seed PURGE=1 FORCE=1 SCALE=0.1 # equivalente, útil para scripts
+```

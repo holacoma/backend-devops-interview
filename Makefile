@@ -20,4 +20,4 @@ migrate-check:
 SCALE ?= 1.0
 
 seed:
-	uv run python manage.py seed --scale $(SCALE)
+	uv run python manage.py seed --scale $(SCALE) $(if $(PURGE),--purge) $(if $(FORCE),--force)
