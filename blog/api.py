@@ -63,7 +63,12 @@ def search_posts(request, q: str):
 @router.get("/posts/by-tag/{slug}", response=list[PostListOut])
 def posts_by_tag(request, slug: str):
     tag = get_object_or_404(Tag, slug=slug)
-    posts = tag.posts.filter(is_published=True).order_by("-created_at")
+    posts = (
+        tag.posts.filter(is_published=True)
+        .select_related("author")
+        .prefetch_related("tags")
+        .order_by("-created_at")
+    )
     return [_serialize_post_list(p) for p in posts]
 
 
