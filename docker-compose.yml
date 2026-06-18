@@ -17,7 +17,7 @@ services:
 
   web:
     build: .
-    command: bash /app/entrypoint.sh
+    command: bash /app/bin/entrypoint.sh
     stdin_open: true
     tty: true
     environment:

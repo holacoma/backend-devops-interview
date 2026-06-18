@@ -19,13 +19,13 @@ Se agregó un `Makefile` con targets descriptivos para reemplazar los comandos `
 | `make migrate-check` | Verifica si hay migraciones sin aplicar    |
 | `make server`     | Levanta el servidor de desarrollo             |
 
-### Script de setup (`setup.sh`)
+### Script de setup (`bin/setup.sh`)
 
 Script bash que detecta el OS (macOS via Homebrew, Linux via apt), instala `uv` y PostgreSQL si no están disponibles, y crea la base de datos. Saltea lo que ya esté instalado.
 
 ### Docker Compose
 
-`docker compose up` levanta la app completa (PostgreSQL 17 + Django) sin ninguna instalación local. El entrypoint (`entrypoint.sh`) detecta los modelos sin datos al arrancar y pregunta si se quiere seedear antes de levantar el servidor. La escala del seed es configurable via `SEED_SCALE` (default `0.1` = ~10% del dataset).
+`docker compose up` levanta la app completa (PostgreSQL 17 + Django) sin ninguna instalación local. El entrypoint (`bin/entrypoint.sh`) detecta los modelos sin datos al arrancar y pregunta si se quiere seedear antes de levantar el servidor. La escala del seed es configurable via `SEED_SCALE` (default `0.1` = ~10% del dataset).
 
 ## Documentación
 

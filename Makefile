@@ -4,7 +4,7 @@ ifneq (,$(wildcard .env))
 endif
 
 setup:
-	bash setup.sh
+	bash bin/setup.sh
 
 server:
 	uv run python manage.py runserver
