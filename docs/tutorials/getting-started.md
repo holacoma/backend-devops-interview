@@ -48,10 +48,15 @@ Responde `y` si quieres explorar la API con datos reales. El seed carga ~10% del
 Una vez que ves `Starting development server at http://0.0.0.0:8000/`, la API está lista en:
 
 ```
-http://localhost:6001/api/docs
+http://localhost:8000/api/docs
 ```
 
 Desde ahí puedes explorar todos los endpoints de forma interactiva.
+
+> Si el puerto 8000 ya está en uso, podés cambiarlo sin tocar el archivo:
+> ```sh
+> APP_PORT=9000 docker compose up
+> ```
 
 ---
 

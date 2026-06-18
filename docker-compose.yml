@@ -28,7 +28,7 @@ services:
       DB_PORT: 5432
       SEED_SCALE: 0.1
     ports:
-      - "6001:8000"
+      - "${APP_PORT:-8000}:8000"
     volumes:
       - .:/app
     depends_on:
