@@ -53,7 +53,7 @@ Los cuatro endpoints daban timeout con el dataset completo. Después del fix res
 
 **Endpoints de creación (`POST /api/posts`, `POST /api/posts/{id}/comments`)**
 
-Se dejaron fuera deliberadamente. Al ser operaciones sobre un único objeto, no tienen el problema de N+1 por naturaleza — el costo por request es constante independiente del volumen de datos. No representan un problema de performance a escalar.
+No se analizaron en profundidad. Un siguiente paso relevante sería agregar endpoints de creación masiva (`bulk_create`) para casos donde se necesite insertar muchos registros — el costo de N requests individuales vs una sola query de bulk es significativo a escala.
 
 **`django-auto-prefetch`**
 
