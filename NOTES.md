@@ -10,7 +10,9 @@ El seed original tardaba más de 10 minutos sin completar. Tras identificar los 
 Ver detalle en [notes/optimizar_seeds.md](notes/optimizar_seeds.md).
 
 ### Developer experience
-_(en progreso)_
+`docker compose up` levanta la app completa (PostgreSQL + Django) sin ninguna instalación local. Al arrancar con la base vacía, el entrypoint detecta los modelos sin datos y pregunta si se quiere seedear. La configuración de la DB es 100% configurable vía variables de entorno.
+
+Ver detalle en [notes/developer_experience.md](notes/developer_experience.md). Tutorial de onboarding en [docs/tutorials/getting-started.md](docs/tutorials/getting-started.md).
 
 ### Production readiness
 _(en progreso)_
