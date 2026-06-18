@@ -86,8 +86,8 @@ make migrate
 ### 4. (Opcional) Carga datos de prueba
 
 ```sh
-make seed-scale SCALE=0.05     # dataset reducido (~5s), recomendado para empezar
-make seed                      # dataset completo (~56s)
+make seed SCALE=0.05     # dataset reducido (~5s), recomendado para empezar
+make seed                # dataset completo (~56s)
 ```
 
 ### 5. Levanta el servidor
