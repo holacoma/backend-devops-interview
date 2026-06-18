@@ -19,5 +19,12 @@ migrate-check:
 
 SCALE ?= 1.0
 
+.PHONY: seed purge
+
 seed:
-	uv run python manage.py seed --scale $(SCALE) $(if $(PURGE),--purge) $(if $(FORCE),--force)
+	uv run python manage.py seed \
+		--scale $(SCALE) \
+		$(if $(filter purge,$(MAKECMDGOALS)),--purge)
+
+purge:
+	@:
