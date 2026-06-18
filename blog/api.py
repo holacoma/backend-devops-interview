@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from ninja import Router
+from ninja import Query, Router
 
 from blog.models import Comment, Post, Tag, User
 from blog.schemas import (
@@ -40,9 +40,15 @@ def _serialize_post_list(post: Post) -> dict:
 
 
 @router.get("/posts", response=list[PostListOut])
-def list_posts(request):
-    posts = Post.objects.filter(is_published=True).order_by("-created_at")
-    return [_serialize_post_list(p) for p in posts]
+def list_posts(request, page: int = 1, page_size: int = Query(default=20, ge=1, le=1000)):
+    qs = (
+        Post.objects.filter(is_published=True)
+        .select_related("author")
+        .prefetch_related("tags")
+        .order_by("-created_at")
+    )
+    offset = (page - 1) * page_size
+    return [_serialize_post_list(p) for p in qs[offset:offset + page_size]]
 
 
 @router.get("/posts/search", response=list[PostListOut])
