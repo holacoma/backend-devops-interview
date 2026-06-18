@@ -53,10 +53,15 @@ def list_posts(request, page: int = 1, page_size: int = Query(default=20, ge=1, 
 
 @router.get("/posts/search", response=list[PostListOut])
 def search_posts(request, q: str):
-    posts = Post.objects.filter(
-        Q(title__icontains=q) | Q(body__icontains=q),
-        is_published=True,
-    ).order_by("-created_at")
+    posts = (
+        Post.objects.filter(
+            Q(title__icontains=q) | Q(body__icontains=q),
+            is_published=True,
+        )
+        .select_related("author")
+        .prefetch_related("tags")
+        .order_by("-created_at")
+    )
     return [_serialize_post_list(p) for p in posts]
 
 
