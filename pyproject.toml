@@ -12,6 +12,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "factory-boy>=3.3.3",
+    "py-spy>=0.4.2",
     "pytest>=9",
     "pytest-django>=4.11",
     "ruff>=0.14",
