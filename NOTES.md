@@ -35,6 +35,14 @@ Ver detalle en [notes/performance.md](notes/performance.md).
 - **N+1 en `_user_detail`** — `get_user` y `find_user_by_email` hacen dos `COUNT` separados. El fix es trivial (`annotate`), pero el endpoint no aparecía en los más lentos con el dataset de prueba.
 - **Endpoints de creación masiva** — `POST /api/posts` y `POST /api/posts/{id}/comments` no se analizaron en profundidad. A escala, reemplazar N requests individuales por un `bulk_create` único reduce significativamente el costo de escritura.
 
+## Qué haría con otro día
+
+- **Tests de happy path por endpoint** — el proyecto tiene smoke tests pero no cubre los endpoints individualmente. Agregaría un test por endpoint con el caso feliz: status 200, shape del response, y al menos una assertion sobre los datos. Base mínima para CI útil.
+- **Deploy completo** — Docker Compose está listo para desarrollo local. El siguiente paso es llevar eso a producción: un Dockerfile de producción (sin dev deps, sin DEBUG), variables de entorno desde secrets, y un target concreto (Fly.io, Render, o ECS). El esqueleto está; falta el último tramo.
+- **Benchmark automático de endpoints** — un script que corra contra la DB con datos reales, mida tiempo y conteo de queries por endpoint, y genere un reporte. Permite detectar regresiones antes de que lleguen a producción y tiene el output listo para convertir en tickets (Jira, Linear, lo que sea).
+- **Refactorizar `blog/api.py`** — el controller mezcla serialización, lógica de negocio y acceso a datos en el mismo archivo. Separaría los serializers en `schemas.py` (ya existe parcialmente), la lógica de queries en un módulo de servicios o repositorio, y dejaría los handlers lo más delgados posible.
+- **Documentación automática de modelos** — agregar `django-extensions` con `graph_models` para generar un diagrama ER desde los modelos, o `drf-spectacular` si se migrara a DRF. Con Ninja, el OpenAPI ya está en `/api/docs`; lo que falta es el diagrama de base de datos para onboarding.
+
 ## Herramientas utilizadas
 
 - **py-spy** — sampling profiler para flamegraphs. La herramienta más útil del proceso.
