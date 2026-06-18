@@ -12,6 +12,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "django-silk>=5.5.0",
     "factory-boy>=3.3.3",
     "py-spy>=0.4.2",
     "pytest>=9",
