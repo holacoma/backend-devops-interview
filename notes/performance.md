@@ -51,6 +51,10 @@ Los cuatro endpoints daban timeout con el dataset completo. Después del fix res
 
 `get_user` y `find_user_by_email` hacen dos `COUNT` separados (`user.posts.count()`, `user.comments.count()`). Se puede resolver con `annotate(post_count=Count("posts"), comment_count=Count("comments"))`. No se atacó porque el endpoint no aparecía en los más lentos con el dataset disponible.
 
+**Endpoints de creación (`POST /api/posts`, `POST /api/posts/{id}/comments`)**
+
+Se dejaron fuera deliberadamente. Al ser operaciones sobre un único objeto, no tienen el problema de N+1 por naturaleza — el costo por request es constante independiente del volumen de datos. No representan un problema de performance a escalar.
+
 **`django-auto-prefetch`**
 
 Librería que resuelve N+1 automáticamente sobreescribiendo el manager — sin necesidad de declarar `select_related`/`prefetch_related` explícitamente. Útil para ir rápido en proyectos grandes. Se descartó porque en este caso los N+1 son puntuales y el approach explícito es más legible y demostrable.
