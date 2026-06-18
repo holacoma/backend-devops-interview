@@ -6,3 +6,5 @@ __pycache__/
 .ruff_cache/
 .DS_Store
 *.sqlite3
+profile.json
+scalene-profile.json

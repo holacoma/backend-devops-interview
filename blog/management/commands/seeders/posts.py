@@ -13,8 +13,8 @@ BODY_POOL_SIZE = 10_000
 
 def seed_posts(fake, user_ids, author_weights, now, three_years_ago, num_posts, batch):
     recency_cutoff = now - timedelta(days=180)
-    title_pool = [fake.sentence(nb_words=8).rstrip(".") for _ in range(TITLE_POOL_SIZE)]
-    body_pool = [fake.text(max_nb_chars=600) for _ in range(BODY_POOL_SIZE)]
+    title_pool = [f"Post title {i}" for i in range(TITLE_POOL_SIZE)]
+    body_pool = [f"Post body {i}" for i in range(BODY_POOL_SIZE)]
 
     with transaction.atomic():
         for chunk_start in range(0, num_posts, batch):
