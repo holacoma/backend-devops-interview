@@ -41,7 +41,12 @@ def _serialize_post_list(post: Post) -> dict:
 
 @router.get("/posts", response=list[PostListOut])
 def list_posts(request):
-    posts = Post.objects.filter(is_published=True).order_by("-created_at")
+    posts = (
+        Post.objects.filter(is_published=True)
+        .select_related("author")
+        .prefetch_related("tags")
+        .order_by("-created_at")
+    )
     return [_serialize_post_list(p) for p in posts]
 
 
