@@ -74,7 +74,10 @@ def posts_by_tag(request, slug: str):
 
 @router.get("/posts/{post_id}", response=PostDetailOut)
 def get_post(request, post_id: int):
-    post = get_object_or_404(Post, id=post_id)
+    post = get_object_or_404(
+        Post.objects.select_related("author").prefetch_related("tags"),
+        id=post_id,
+    )
     post.view_count += 1
     post.save()
 
@@ -85,7 +88,7 @@ def get_post(request, post_id: int):
             "body": c.body,
             "created_at": c.created_at,
         }
-        for c in post.comments.order_by("created_at")
+        for c in Comment.objects.filter(post=post).select_related("author").order_by("created_at")
     ]
     return {
         "id": post.id,
