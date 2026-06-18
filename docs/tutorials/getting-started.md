@@ -83,10 +83,34 @@ make setup
 make migrate
 ```
 
-### 4. Levanta el servidor
+### 4. (Opcional) Carga datos de prueba
+
+```sh
+make seed SCALE=0.05     # dataset reducido (~5s), recomendado para empezar
+make seed                # dataset completo (~56s)
+```
+
+### 5. Levanta el servidor
 
 ```sh
 make server
 ```
 
 La API está lista en `http://localhost:8000/api/docs`.
+
+---
+
+## Notas adicionales
+
+### Opciones del comando seed
+
+| Modificador | Ejemplo | Efecto |
+|-------------|---------|--------|
+| `SCALE=N`   | `make seed SCALE=0.05` | Carga el 5% del dataset (~5s). Default: `1.0` (completo) |
+| `purge`     | `make seed purge` | Elimina todos los datos existentes antes de seedear |
+
+Se pueden combinar:
+
+```sh
+make seed purge SCALE=0.05   # limpia y carga un dataset reducido
+```

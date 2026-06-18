@@ -14,10 +14,12 @@ Se agregó un `Makefile` con targets descriptivos para reemplazar los comandos `
 
 | Target            | Qué hace                                      |
 |-------------------|-----------------------------------------------|
-| `make setup`      | Instala dependencias y crea la base de datos  |
-| `make migrate`    | Aplica migraciones pendientes                 |
-| `make migrate-check` | Verifica si hay migraciones sin aplicar    |
-| `make server`     | Levanta el servidor de desarrollo             |
+| `make setup`           | Instala dependencias y crea la base de datos       |
+| `make migrate`         | Aplica migraciones pendientes                      |
+| `make migrate-check`   | Verifica si hay migraciones sin aplicar            |
+| `make server`          | Levanta el servidor de desarrollo                  |
+| `make seed`            | Carga el dataset completo                          |
+| `make seed SCALE=0.05` | Carga una fracción del dataset (ej. 5%)            |
 
 ### Script de setup (`bin/setup.sh`)
 
