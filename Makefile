@@ -16,3 +16,9 @@ migrate:
 
 migrate-check:
 	uv run python manage.py migrate --check
+
+seed:
+	uv run python manage.py seed
+
+seed-scale:
+	uv run python manage.py seed --scale $(SCALE)
